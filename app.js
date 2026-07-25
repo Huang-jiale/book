@@ -176,6 +176,16 @@
     });
   }
 
+  /* 顶部导航高亮：根据当前路由点亮 首页 / 工作 / 学习 */
+  function updateTopNav(route) {
+    document.querySelectorAll('.dt-navlink').forEach(function (a) { a.classList.remove('active'); });
+    function on(sel) { var a = document.querySelector(sel); if (a) a.classList.add('active'); }
+    if (route === '' || route === '__home') { on('.dt-navlink[href="#/"]'); return; }
+    if (route.indexOf('cat/work') === 0) { on('.dt-navlink[href="#/cat/work"]'); return; }
+    if (route.indexOf('cat/study') === 0) { on('.dt-navlink[href="#/cat/study"]'); return; }
+    if (route.indexOf('doc/') === 0) { var id = route.slice(4); if (DOCS[id]) on('.dt-navlink[href="#/cat/study"]'); }
+  }
+
   /* ---------- 分页（同模块内上一篇/下一篇） ---------- */
   function renderPagination(id) {
     pagEl.innerHTML = '';
@@ -267,7 +277,7 @@
     });
     setActive('__home');
     renderPagination(null);
-    document.title = pillar.title + ' · ' + item.label + ' · 知行笔记';
+    document.title = pillar.title + ' · ' + item.label + ' · 书房';
     window.scrollTo(0, 0);
   }
 
@@ -326,16 +336,17 @@
       var mp = document.querySelector('.main-pane');
       if (mp && mp.scrollTo) mp.scrollTo(0, 0);
     }
-    document.title = DOCS[id] ? DOCS[id].title + ' · 知行笔记' : '知行笔记';
+    document.title = DOCS[id] ? DOCS[id].title + ' · 书房' : '书房';
   }
 
   function router() {
     var route = currentRoute();
+    updateTopNav(route);
     if (route === '' || route === '__home') {
       renderHome();
       setActive('__home');
       renderPagination(null);
-      document.title = '知行笔记';
+      document.title = '书房';
       return;
     }
     if (route.indexOf('cat/') === 0) {
