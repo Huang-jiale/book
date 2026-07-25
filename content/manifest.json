@@ -139,6 +139,30 @@
           "file": "content/jt-appendix.md"
         }
       ]
+    },
+    {
+      "name": "言语理解与表达",
+      "items": [
+        { "id": "ks-yuyan", "title": "言语理解与表达 · 备考手册", "file": "content/ks-yuyan.md" }
+      ]
+    },
+    {
+      "name": "数量关系",
+      "items": [
+        { "id": "ks-shuliang", "title": "数量关系 · 备考手册", "file": "content/ks-shuliang.md" }
+      ]
+    },
+    {
+      "name": "常识判断",
+      "items": [
+        { "id": "ks-changshi", "title": "常识判断 · 备考手册", "file": "content/ks-changshi.md" }
+      ]
+    },
+    {
+      "name": "申论",
+      "items": [
+        { "id": "ks-shenlun", "title": "申论 · 备考手册", "file": "content/ks-shenlun.md" }
+      ]
     }
   ],
   "home": [
@@ -170,5 +194,26 @@
     "ai":  [],
     "ops": [],
     "pd":  []
+  },
+  "mindmapExams": ["gk", "gd", "syb"],
+  "mindmap": {
+    "branches": [
+      {
+        "name": "行测",
+        "children": [
+          { "name": "资料分析", "doc": "zl-01" },
+          { "name": "判断推理", "doc": "jt-01" },
+          { "name": "言语理解与表达", "doc": "ks-yuyan" },
+          { "name": "数量关系", "doc": "ks-shuliang" },
+          { "name": "常识判断", "doc": "ks-changshi" }
+        ]
+      },
+      {
+        "name": "申论",
+        "children": [
+          { "name": "申论", "doc": "ks-shenlun" }
+        ]
+      }
+    ]
   }
 }
