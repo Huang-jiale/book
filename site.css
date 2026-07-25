@@ -335,7 +335,10 @@ body.on-home .content-panel .sl-container { max-width: 1180px; }
 }
 .hv-card:nth-child(1) { animation-delay: 0.9s; }
 .hv-card:nth-child(2) { animation-delay: 1.05s; }
-@keyframes hvCardIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes hvCardIn { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .hv-card { opacity: 1 !important; animation: none !important; }
+}
 .hv-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
 .hv-card::before {
   content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
@@ -356,7 +359,7 @@ body.on-home .content-panel .sl-container { max-width: 1180px; }
   color: var(--ink-soft); font-weight: 300; margin: 4px 0 0; text-transform: uppercase;
 }
 .hv-divider { width: 24px; height: 1px; background: var(--gold-muted); margin: 18px 0; }
-.hv-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; flex: 1 1 auto; }
+.hv-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .hv-item {
   display: flex; align-items: center; gap: 14px;
   font-size: 14px; color: var(--ink-mid); font-weight: 300; letter-spacing: 0.05em;
@@ -370,10 +373,10 @@ body.on-home .content-panel .sl-container { max-width: 1180px; }
 .hv-item-tag { margin-left: auto; font-size: 11px; color: var(--gold-muted); letter-spacing: 0.1em; opacity: 0; transition: opacity 0.3s ease; }
 .hv-item:hover .hv-item-tag { opacity: 1; }
 
-/* 卡片底部「查看全部」锚点：两卡等高后底部自然对齐 */
+/* 卡片底部「查看全部」锚点：margin-top:auto 把锚点钉在底部，顶部内容始终顶对齐 */
 .hv-card-foot {
   display: inline-flex; align-items: center; align-self: flex-start;
-  margin-top: 18px; padding-top: 14px;
+  margin-top: auto; padding-top: 14px;
   font-family: var(--serif); font-size: 12px; letter-spacing: 0.18em;
   color: var(--accent-rust); text-decoration: none;
   border-top: 1px solid var(--divider); width: 100%;
