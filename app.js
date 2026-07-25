@@ -13,6 +13,8 @@
   var searchIdx = null; // [{id,title,text}]
   var pendingScroll = null;
   var spy = null;
+  /* 子模块英文标签（首页卡片与顶栏下拉共用） */
+  var EN = { ops: 'Operations', pd: 'Product Dev', gk: 'National', gd: 'Guangdong', syb: 'Institution', ai: 'Artificial Intelligence' };
 
   /* ---------- 主题 ---------- */
   function applyTheme(t) {
@@ -176,14 +178,73 @@
     });
   }
 
-  /* 顶部导航高亮：根据当前路由点亮 首页 / 工作 / 学习 */
+  /* 顶部导航高亮：根据当前路由点亮 首页 / 工作 / 学习（含其子模块页） */
   function updateTopNav(route) {
     document.querySelectorAll('.dt-navlink').forEach(function (a) { a.classList.remove('active'); });
+    document.querySelectorAll('.dt-dropdown-menu a').forEach(function (a) { a.classList.remove('active'); });
     function on(sel) { var a = document.querySelector(sel); if (a) a.classList.add('active'); }
     if (route === '' || route === '__home') { on('.dt-navlink[href="#/"]'); return; }
-    if (route.indexOf('cat/work') === 0) { on('.dt-navlink[href="#/cat/work"]'); return; }
-    if (route.indexOf('cat/study') === 0) { on('.dt-navlink[href="#/cat/study"]'); return; }
-    if (route.indexOf('doc/') === 0) { var id = route.slice(4); if (DOCS[id]) on('.dt-navlink[href="#/cat/study"]'); }
+    /* 推算当前路由归属的模块（work / study） */
+    var pillarKey = null;
+    if (route.indexOf('cat/work') === 0) pillarKey = 'work';
+    else if (route.indexOf('cat/study') === 0) pillarKey = 'study';
+    else if (route.indexOf('cat/') === 0) {
+      var ckey = route.slice(4);
+      if (manifest && manifest.home) {
+        manifest.home.forEach(function (p) {
+          if (p.key === ckey) { pillarKey = p.key; }
+          (p.items || []).forEach(function (it) { if (it.key === ckey) { pillarKey = p.key; } });
+        });
+      }
+    } else if (route.indexOf('doc/') === 0) {
+      pillarKey = 'study'; /* 文档均为考公学习资料 */
+    }
+    if (pillarKey === 'work') on('.dt-navlink[href="#/cat/work"]');
+    else if (pillarKey === 'study') on('.dt-navlink[href="#/cat/study"]');
+    /* 高亮顶栏下拉里与当前路由匹配的模块项 */
+    var cur = document.querySelector('.dt-dropdown-menu a[href="#/' + route + '"]');
+    if (cur) cur.classList.add('active');
+  }
+
+  /* 顶栏下拉：由 manifest.home 动态生成 工作 / 学习 的子模块菜单 */
+  function buildTopNav() {
+    if (!manifest || !manifest.home) return;
+    function fill(containerId, pillarKey) {
+      var container = document.getElementById(containerId);
+      if (!container) return;
+      var p = null;
+      manifest.home.forEach(function (pp) { if (pp.key === pillarKey) p = pp; });
+      if (!p) return;
+      var items = ['<a class="dd-all" href="#/cat/' + p.key + '"><span>查看全部</span></a>'];
+      (p.items || []).forEach(function (it) {
+        var en = EN[it.key] || '';
+        items.push('<a href="#/cat/' + it.key + '"><span>' + escapeHtml(it.label) + '</span><span class="dd-en">' + escapeHtml(en) + '</span></a>');
+      });
+      container.innerHTML = items.join('');
+    }
+    fill('dd-work', 'work');
+    fill('dd-study', 'study');
+  }
+
+  /* 下拉开合控制 */
+  function closeDropdowns(except) {
+    document.querySelectorAll('.dt-dropdown.open').forEach(function (d) {
+      if (d !== except) d.classList.remove('open');
+    });
+  }
+  function initDropdowns() {
+    document.querySelectorAll('.dt-dropdown-toggle').forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        var dd = toggle.closest('.dt-dropdown');
+        var isOpen = dd.classList.contains('open');
+        closeDropdowns();
+        if (!isOpen) dd.classList.add('open');
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.dt-dropdown')) closeDropdowns();
+    });
   }
 
   /* ---------- 分页（同模块内上一篇/下一篇） ---------- */
@@ -207,13 +268,14 @@
     tocEl.innerHTML = '';
     document.body.classList.add('on-home');
     var home = (manifest && manifest.home) ? manifest.home : [];
-    var EN = { ops: 'Operations', pd: 'Product Dev', gk: 'National', gd: 'Guangdong', syb: 'Institution', ai: 'Artificial Intelligence' };
     var html = '<div class="home-studyroom">';
     html += '<header class="hero">';
     html += '<div class="hero-seal"><span>心</span></div>';
     html += '<h1 class="hero-title">书房</h1>';
     html += '<p class="hero-subtitle">INNER STUDY — WORK &amp; LEARN</p>';
     html += '</header>';
+    html += '<p class="home-intro">在书房的方寸之间，安放工作的方法与学习的沉淀。<br/>择一隅，开始你的整理。</p>';
+    html += '<div class="home-section-label">· 工 作 与 学 习 ·</div>';
     html += '<section class="modules-grid">';
     home.forEach(function (p) {
       var dm = p.key === 'work' ? 'work' : 'study';
@@ -245,39 +307,53 @@
     });
   }
 
-  /* ---------- 模块分类页（首页子标签着陆） ---------- */
+  /* ---------- 模块分类页（首页子标签着陆，亦支持 工作/学习 总览） ---------- */
   function renderCat(key) {
     if (!manifest || !manifest.home) { contentEl.innerHTML = '<h1>页面不存在</h1><p>返回 <a href="#/">首页</a></p>'; return; }
     var pillar = null, item = null;
     manifest.home.forEach(function (p) {
+      if (p.key === key) { pillar = p; return; }
       (p.items || []).forEach(function (it) { if (it.key === key) { pillar = p; item = it; } });
     });
-    if (!item) { contentEl.innerHTML = '<h1>页面不存在</h1><p>返回 <a href="#/">首页</a></p>'; return; }
+    if (!pillar) { contentEl.innerHTML = '<h1>页面不存在</h1><p>返回 <a href="#/">首页</a></p>'; return; }
     tocEl.innerHTML = '';
     document.body.classList.add('on-home');
-    var ids = (manifest.catPages && manifest.catPages[key]) ? manifest.catPages[key] : [];
     var html = '';
-    html += '<div class="cat-back"><a href="#/">← 首页</a> · <span>' + escapeHtml(pillar.title) + '</span></div>';
-    html += '<div class="cat-title">' + escapeHtml(pillar.title) + ' · ' + escapeHtml(item.label) + '</div>';
-    if (!ids.length) {
-      html += '<div class="cat-empty">该模块笔记整理中，敬请期待 📝</div>';
-    } else {
-      if (key === 'gk' || key === 'gd' || key === 'syb') {
-        html += '<div class="cat-note">以下为考公通用素材（行测 / 申论），适用于' + escapeHtml(item.label) + '等考试。</div>';
-      }
+    if (!item) {
+      /* 模块总览页（如 工作 / 学习）：列出其下所有子模块 */
+      html += '<div class="cat-back"><a href="#/">← 首页</a></div>';
+      html += '<div class="cat-title">' + escapeHtml(pillar.title) + '</div>';
       html += '<ul class="cat-list">';
-      ids.forEach(function (id) {
-        if (DOCS[id]) html += '<li><a class="cat-list-link" href="#/doc/' + id + '">' + escapeHtml(DOCS[id].title) + '</a></li>';
+      (pillar.items || []).forEach(function (it) {
+        html += '<li><a class="cat-list-link" href="#/cat/' + it.key + '">' + escapeHtml(it.label) + '</a></li>';
       });
       html += '</ul>';
+      document.title = pillar.title + ' · 书房';
+    } else {
+      /* 子模块页：列出该模块下的笔记文档 */
+      var ids = (manifest.catPages && manifest.catPages[key]) ? manifest.catPages[key] : [];
+      html += '<div class="cat-back"><a href="#/">← 首页</a> · <a href="#/cat/' + pillar.key + '">' + escapeHtml(pillar.title) + '</a></div>';
+      html += '<div class="cat-title">' + escapeHtml(pillar.title) + ' · ' + escapeHtml(item.label) + '</div>';
+      if (!ids.length) {
+        html += '<div class="cat-empty">该模块笔记整理中，敬请期待 📝</div>';
+      } else {
+        if (key === 'gk' || key === 'gd' || key === 'syb') {
+          html += '<div class="cat-note">以下为考公通用素材（行测 / 申论），适用于' + escapeHtml(item.label) + '等考试。</div>';
+        }
+        html += '<ul class="cat-list">';
+        ids.forEach(function (id) {
+          if (DOCS[id]) html += '<li><a class="cat-list-link" href="#/doc/' + id + '">' + escapeHtml(DOCS[id].title) + '</a></li>';
+        });
+        html += '</ul>';
+      }
+      document.title = pillar.title + ' · ' + item.label + ' · 书房';
     }
     contentEl.innerHTML = html;
-    contentEl.querySelectorAll('a[href^="#/doc/"]').forEach(function (a) {
+    contentEl.querySelectorAll('a[href^="#/doc/"], a[href^="#/cat/"]').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); location.hash = a.getAttribute('href').replace(/^#/, ''); });
     });
     setActive('__home');
     renderPagination(null);
-    document.title = pillar.title + ' · ' + item.label + ' · 书房';
     window.scrollTo(0, 0);
   }
 
@@ -342,6 +418,7 @@
   function router() {
     var route = currentRoute();
     updateTopNav(route);
+    closeDropdowns();
     if (route === '' || route === '__home') {
       renderHome();
       setActive('__home');
@@ -440,6 +517,8 @@
     .then(function (m) {
       manifest = m;
       buildNav();
+      buildTopNav();
+      initDropdowns();
       buildSearchIndex();
       initSearch();
       window.addEventListener('hashchange', router);
