@@ -1,6 +1,8 @@
 /* 知行笔记 · 宏布局与交互控件（叠加在 starlight.css 之上） */
 
 * { box-sizing: border-box; }
+/* 调深“次级文字”颜色：原 --ink-soft(#5b5c64) 在浅底上偏灰发浅，正文/引用/目录更易读 */
+:root { --ink-soft: #383a42; }
 html, body { margin: 0; padding: 0; }
 /* 锚点跳转时为顶栏预留高度，避免标题被盖住 */
 html { scroll-padding-top: calc(var(--sl-nav-height, 3.75rem) + 1.25rem); }
