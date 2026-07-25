@@ -270,37 +270,40 @@
     var home = (manifest && manifest.home) ? manifest.home : [];
     var html = '<div class="home-v2">';
     html += '<div class="home-v2-inner">';
-    html += '<section class="hv-hero">';
+    html += '<header class="hv-hero">';
     html += '<div class="hv-seal"><span>心</span></div>';
     html += '<h1 class="hv-title">书房</h1>';
     html += '<p class="hv-sub">INNER STUDY — WORK &amp; LEARN</p>';
-    html += '</section>';
-    html += '<div class="hv-label"><span class="hv-label-line"></span><span class="hv-label-text">双轨</span><span class="hv-label-line"></span></div>';
-    html += '<div class="hv-grid">';
+    html += '</header>';
+    html += '<div class="book">';
+    html += '<div class="book-spine"></div>';
     home.forEach(function (p) {
       var dm = p.key;
-      html += '<article class="hv-card" data-module="' + dm + '">';
-      html += '<h2 class="hv-card-title">' + escapeHtml(p.title) + '</h2>';
-      html += '<p class="hv-card-en">' + (dm === 'work' ? 'Workstream' : 'Examination &amp; AI') + '</p>';
-      html += '<div class="hv-divider"></div>';
-      html += '<ul class="hv-items">';
+      var side = dm === 'work' ? 'left' : 'right';
+      html += '<section class="book-page book-' + side + '" data-module="' + dm + '">';
+      html += '<div class="page-head">';
+      html += '<h2 class="page-title">' + escapeHtml(p.title) + '</h2>';
+      html += '<p class="page-en">' + (dm === 'work' ? 'Workstream' : 'Examination &amp; AI') + '</p>';
+      html += '</div>';
+      html += '<div class="page-rule"></div>';
+      html += '<ul class="page-items">';
       (p.items || []).forEach(function (it) {
         var en = EN[it.key] || '';
-        html += '<li><a class="hv-item" href="#/cat/' + it.key + '">';
-        html += '<span class="hv-item-dot"></span>';
+        html += '<li><a class="page-item" href="#/cat/' + it.key + '">';
+        html += '<span class="page-item-dot"></span>';
         html += '<span>' + escapeHtml(it.label) + '</span>';
-        html += '<span class="hv-item-tag">' + escapeHtml(en) + '</span>';
+        html += '<span class="page-item-tag">' + escapeHtml(en) + '</span>';
         html += '</a></li>';
       });
       html += '</ul>';
-      html += '<a class="hv-card-foot" href="#/cat/' + dm + '">查看全部 →</a>';
-      html += '</article>';
+      html += '<a class="page-foot" href="#/cat/' + dm + '">查看全部 →</a>';
+      html += '</section>';
     });
     html += '</div>';
     html += '</div>';
     html += '</div>';
     contentEl.innerHTML = html;
-    contentEl.querySelectorAll('.hv-item, .hv-card-foot').forEach(function (a) {
+    contentEl.querySelectorAll('.page-item, .page-foot').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); location.hash = a.getAttribute('href').replace(/^#/, ''); });
     });
   }
