@@ -28,7 +28,22 @@ body {
 }
 
 /* ===== 顶栏：三栏布局，搜索居中 ===== */
-header.header { position: sticky; top: 0; z-index: 40; }
+/* 覆盖 starlight.css 原生 fixed + 半透明顶栏：取消 padding/fixed/backdrop-filter，
+   避免 .header-inner 高度 60px 与 header 自身 8px padding 叠加导致视觉高度 76px，
+   进而与下方内容重叠。 */
+header.header,
+.header:where(.astro-vrdttmbt),
+[data-has-sidebar] .header:where(.astro-vrdttmbt) {
+  position: sticky !important;
+  top: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+  background-color: var(--paper) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid var(--rule, #ddd) !important;
+}
+header.header { z-index: 40; }
 .header-inner {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
