@@ -24,11 +24,14 @@
   var saved = localStorage.getItem('theme');
   if (!saved) saved = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
   applyTheme(saved);
-  document.getElementById('theme-toggle').addEventListener('click', function () {
-    var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    applyTheme(cur === 'dark' ? 'light' : 'dark');
-    localStorage.setItem('theme', cur === 'dark' ? 'light' : 'dark');
-  });
+  var themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      var cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      applyTheme(cur === 'dark' ? 'light' : 'dark');
+      localStorage.setItem('theme', cur === 'dark' ? 'light' : 'dark');
+    });
+  }
 
   /* ---------- 工具 ---------- */
   function escapeHtml(s) {
