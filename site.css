@@ -2,6 +2,8 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+/* 锚点跳转时为顶栏预留高度，避免标题被盖住 */
+html { scroll-padding-top: calc(var(--sl-nav-height, 3.75rem) + 1.25rem); }
 
 /* 字体与颜色（与参考站一致） */
 body {
@@ -16,6 +18,9 @@ body {
 .sl-markdown-content h2,
 .sl-markdown-content h3,
 .sl-markdown-content h4 { font-family: var(--font-display); color: var(--ink); }
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3 { scroll-margin-top: calc(var(--sl-nav-height, 3.75rem) + 1.25rem); }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -31,7 +36,7 @@ header.header { position: sticky; top: 0; z-index: 40; }
   gap: 1rem;
   height: var(--sl-nav-height, 3.75rem);
   padding: 0 var(--sl-nav-pad-x, 1.5rem);
-  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  background: color-mix(in srgb, var(--paper) 97%, transparent);
   backdrop-filter: saturate(180%) blur(12px);
   -webkit-backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid var(--rule, #ddd);
@@ -80,7 +85,7 @@ header.header { position: sticky; top: 0; z-index: 40; }
 [data-theme=dark] .dt-theme .ico-moon { display: block; }
 
 /* ===== 首页手风琴 ===== */
-.home-accordion { max-width: var(--reading-width, 720px); margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+.home-accordion { max-width: var(--reading-width, 720px); margin: 0 auto; padding: calc(var(--sl-nav-height, 3.75rem) + 2rem) 1.5rem 4rem; }
 .acc-module {
   border: 1px solid var(--rule, #e2e2e2); border-radius: 14px;
   margin-bottom: 1rem; overflow: hidden; background: var(--paper-soft);
@@ -128,11 +133,12 @@ header.header { position: sticky; top: 0; z-index: 40; }
   nav.sidebar { position: static !important; height: auto !important; }
   .sidebar-pane { position: static !important; width: auto !important; background: transparent !important; height: auto !important; }
   .header-inner {
-    display: flex; flex-wrap: wrap; height: auto; padding: .6rem var(--sl-nav-pad-x, 1.5rem); gap: .6rem;
+    display: flex; flex-wrap: nowrap; height: var(--sl-nav-height, 3.75rem);
+    padding: 0 var(--sl-nav-pad-x, 1rem); gap: .6rem;
   }
-  .dt-brand { order: 1; }
-  .dt-theme { order: 2; margin-left: auto; }
-  .dt-search { order: 3; width: 100%; justify-self: stretch; }
+  .dt-brand { order: 1; flex: none; }
+  .dt-theme { order: 3; margin-left: auto; flex: none; }
+  .dt-search { order: 2; width: auto; flex: 1 1 auto; min-width: 0; justify-self: stretch; }
 }
 
 /* ===== 主内容限宽 ===== */
@@ -140,7 +146,7 @@ header.header { position: sticky; top: 0; z-index: 40; }
 body.on-home .right-sidebar-container { display: none; }
 .content-panel .sl-container {
   max-width: var(--reading-width, 720px);
-  margin: 0 auto; padding: 2.5rem 1.5rem 4rem;
+  margin: 0 auto; padding: calc(var(--sl-nav-height, 3.75rem) + 2rem) 1.5rem 4rem;
 }
 
 /* ===== 右侧目录 ===== */
