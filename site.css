@@ -187,11 +187,11 @@ nav.sidebar { display: none !important; }
 /* 顶部右侧导航：首页 / 工作 / 学习 / GitHub */
 .dt-nav-cluster {
   justify-self: end;
-  display: flex; align-items: center; gap: .15rem;
+  display: flex; align-items: center; gap: .6rem;
 }
 .dt-navlink {
-  font-family: var(--font-body); font-size: .92rem; color: var(--ink-soft);
-  text-decoration: none; padding: .35rem .6rem; border-radius: 8px;
+  font-family: var(--font-body); font-size: .95rem; color: var(--ink-soft);
+  text-decoration: none; padding: .4rem .9rem; border-radius: 8px;
   transition: color .15s, background .15s; white-space: nowrap;
 }
 .dt-navlink:hover { color: var(--ink); background: var(--paper-soft); }
@@ -285,13 +285,13 @@ body.on-home .content-panel .sl-container { max-width: 1180px; }
 .home-v2-inner {
   position: relative; z-index: 1;
   flex: 1; min-height: 0;
-  display: flex; flex-direction: column; justify-content: center;
+  display: flex; flex-direction: column; justify-content: flex-start;
   max-width: 1080px; width: 100%; margin: 0 auto;
-  padding: 24px 40px 30px;
+  padding: 12px 40px 30px;
 }
 
 /* HERO */
-.hv-hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 2px 0 16px; }
+.hv-hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 0 10px; }
 .hv-seal {
   width: 44px; height: 44px; border: 1.5px solid var(--gold-muted); border-radius: 5px;
   display: flex; align-items: center; justify-content: center; margin-bottom: 16px; position: relative;
@@ -317,10 +317,15 @@ body.on-home .content-panel .sl-container { max-width: 1180px; }
   position: relative;
   display: flex;
   width: 100%; max-width: 880px; margin: 0 auto;
-  background: linear-gradient(135deg, #3b342b 0%, #2a251f 100%);
-  padding: 14px;
-  border-radius: 14px;
-  box-shadow: 0 30px 70px rgba(0,0,0,0.20), 0 4px 12px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.07);
+  background:
+    linear-gradient(135deg, #443b31 0%, #2e2821 55%, #1f1b16 100%);
+  padding: 16px 18px;
+  border-radius: 14px 18px 18px 14px;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.06) inset,
+    0 36px 80px rgba(0,0,0,0.28),
+    0 12px 24px rgba(0,0,0,0.18),
+    0 4px 6px rgba(0,0,0,0.12);
   opacity: 0; animation: hvBookIn 1s cubic-bezier(0.23,1,0.32,1) 0.85s forwards;
 }
 @keyframes hvBookIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
@@ -330,31 +335,47 @@ body.on-home .content-panel .sl-container { max-width: 1180px; }
   .book { transform: none !important; }
 }
 
-/* 中缝书脊：居中竖向凹陷阴影 */
+/* 中缝书脊：装订凹陷 + 中线 */
 .book-spine {
-  position: absolute; top: 14px; bottom: 14px; left: 50%; transform: translateX(-50%);
-  width: 30px; z-index: 4; pointer-events: none;
+  position: absolute; top: 16px; bottom: 16px; left: 50%; transform: translateX(-50%);
+  width: 34px; z-index: 5; pointer-events: none;
   background: linear-gradient(90deg,
     rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.10) 40%,
-    rgba(0,0,0,0.20) 50%,
-    rgba(0,0,0,0.10) 60%,
+    rgba(0,0,0,0.18) 25%,
+    rgba(0,0,0,0.35) 48%,
+    rgba(0,0,0,0.35) 52%,
+    rgba(0,0,0,0.18) 75%,
     rgba(0,0,0,0) 100%);
+}
+.book-spine::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.55) 20%, rgba(0,0,0,0.55) 80%, transparent);
+}
+.book-spine::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 5px; background: linear-gradient(90deg, rgba(255,255,255,0.06), transparent 40%, transparent 60%, rgba(255,255,255,0.05));
 }
 
 /* 左右两页：等宽等高 */
 .book-page {
   position: relative; flex: 1 1 0; min-width: 0;
   background: linear-gradient(180deg, #fffdf9 0%, var(--paper-warm) 100%);
-  padding: 38px 40px 30px;
+  padding: 34px 38px 28px;
   display: flex; flex-direction: column;
-  box-shadow: inset 0 0 24px rgba(0,0,0,0.04);
+  box-shadow:
+    inset 0 0 28px rgba(0,0,0,0.05),
+    inset 0 0 0 1px rgba(0,0,0,0.02);
 }
-.book-left  { border-radius: 6px 0 0 6px; padding-right: 46px; }
-.book-right { border-radius: 0 6px 6px 0; padding-left: 46px; }
-/* 书页内缘（靠书脊）细阴影，表现纸张厚度 */
-.book-left::after  { content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 18px; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06)); pointer-events: none; }
-.book-right::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0;  width: 18px; background: linear-gradient(270deg, transparent, rgba(0,0,0,0.06)); pointer-events: none; }
+.book-left  { border-radius: 4px 0 0 4px; padding-right: 50px; }
+.book-right { border-radius: 0 4px 4px 0; padding-left: 50px; }
+/* 书页外侧：模拟纸张堆叠的白色边 */
+.book-left::before  { content: ''; position: absolute; top: 0; bottom: 0; left: -4px; width: 4px; background: linear-gradient(90deg, rgba(255,255,255,0.35), rgba(255,255,255,0.08)); border-radius: 2px 0 0 2px; pointer-events: none; }
+.book-right::before { content: ''; position: absolute; top: 0; bottom: 0; right: -4px; width: 4px; background: linear-gradient(270deg, rgba(255,255,255,0.35), rgba(255,255,255,0.08)); border-radius: 0 2px 2px 0; pointer-events: none; }
+/* 书页内缘（靠书脊）阴影，表现纸张厚度 */
+.book-left::after  { content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 22px; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.09)); pointer-events: none; }
+.book-right::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0;  width: 22px; background: linear-gradient(270deg, transparent, rgba(0,0,0,0.09)); pointer-events: none; }
 
 .page-head { text-align: center; }
 .page-title { font-family: var(--display); font-size: 30px; font-weight: 400; letter-spacing: 0.14em; color: var(--ink-deep); margin: 0; }
@@ -400,10 +421,13 @@ body.on-home .content-panel .sl-container { max-width: 1180px; }
   .book-spine {
     top: 50%; left: 12px; right: 12px; bottom: auto; width: auto; height: 24px;
     transform: translateY(-50%);
-    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.16) 50%, transparent);
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.18) 55%, transparent);
   }
+  .book-spine::before,
+  .book-spine::after { display: none; }
   .book-page { border-radius: 6px; padding: 30px 24px 24px; }
   .book-left, .book-right { padding-left: 24px; padding-right: 24px; }
+  .book-left::before, .book-right::before,
   .book-left::after, .book-right::after { display: none; }
 }
 
@@ -624,6 +648,9 @@ html:not([data-theme=dark]) #content th,
 html:not([data-theme=dark]) #content td { color: var(--ink, #18181c); }
 html:not([data-theme=dark]) #content th,
 html:not([data-theme=dark]) #content td { color: var(--ink, #18181c) !important; }
+/* 镜像 Starlight 选择器，覆盖 .sl-markdown-content th { color: var(--sl-color-white) } */
+html:not([data-theme=dark]) .sl-markdown-content th:not(:where(.not-content *)),
+html:not([data-theme=dark]) .sl-markdown-content td:not(:where(.not-content *)) { color: var(--ink, #18181c) !important; }
 .mm-cat-head {
   padding: .9rem .7rem .75rem;
   text-align: center;
