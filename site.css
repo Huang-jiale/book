@@ -127,6 +127,8 @@ header.header,
   border-bottom: 1px solid var(--rule, #ddd) !important;
 }
 header.header { z-index: 40; }
+/* 整体去掉左侧边栏，改为清爽单栏布局 */
+nav.sidebar { display: none !important; }
 .header-inner {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -180,6 +182,22 @@ header.header { z-index: 40; }
 .dt-theme .ico-moon { display: none; }
 [data-theme=dark] .dt-theme .ico-sun { display: none; }
 [data-theme=dark] .dt-theme .ico-moon { display: block; }
+
+/* 顶部右侧导航：首页 / 工作 / 学习 / GitHub */
+.dt-nav-cluster {
+  justify-self: end;
+  display: flex; align-items: center; gap: .15rem;
+}
+.dt-navlink {
+  font-family: var(--font-body); font-size: .92rem; color: var(--ink-soft);
+  text-decoration: none; padding: .35rem .6rem; border-radius: 8px;
+  transition: color .15s, background .15s; white-space: nowrap;
+}
+.dt-navlink:hover { color: var(--ink); background: var(--paper-soft); }
+.dt-navlink.active { color: var(--accent); background: var(--accent-soft, #eef4f9); }
+.dt-github { display: inline-flex; align-items: center; padding: .35rem .5rem; }
+.dt-github:hover { color: var(--ink); background: var(--paper-soft); }
+.dt-github svg { display: block; }
 
 /* ===== 首页：书房 (Study Room) ===== */
 body.on-home .content-panel .sl-container { max-width: 1080px; }
@@ -397,46 +415,38 @@ body.on-home .content-panel .sl-container { max-width: 1080px; }
 .sl-markdown-content a.cat-list-link,
 .sl-markdown-content .cat-back a { border-bottom: 0; }
 
-/* ===== 桌面：侧栏 | 主内容 网格；右侧目录浮动 ===== */
+/* ===== 桌面：单栏布局，主内容居中并横向拉伸 ===== */
 @media (min-width: 1024px) {
   .page {
     display: grid !important;
-    grid-template-columns: var(--sl-sidebar-width, 18rem) minmax(0, 1fr) !important;
+    grid-template-columns: 1fr !important;
     grid-template-rows: var(--sl-nav-height, 3.75rem) 1fr !important;
-    grid-template-areas: "head head" "side main" !important;
+    grid-template-areas: "head" "main" !important;
   }
   header.header { grid-area: head; }
-  nav.sidebar {
-    grid-area: side; position: sticky; top: var(--sl-nav-height, 3.75rem);
-    align-self: start; height: calc(100vh - var(--sl-nav-height, 3.75rem)); overflow-y: auto;
-    background: var(--paper); padding-top: 1.5rem;
+  .main-frame {
+    grid-area: main; min-width: 0; background: var(--paper);
+    max-width: 1180px; width: 100%; margin: 0 auto; padding-top: .5rem;
   }
-  /* 取消 starlight.css 原生的 position:fixed，让侧栏跟随网格内的 sticky 容器，
-     避免与半透明顶栏重叠 / 顶栏透出侧栏文字 */
-  .sidebar-pane {
-    position: static !important; inset: auto !important;
-    width: auto !important; height: auto !important;
-    overflow: visible !important; visibility: visible !important;
-  }
-  .main-frame { grid-area: main; min-width: 0; background: var(--paper); padding-top: .5rem; }
   .lg\:sl-flex { flex-direction: row; }
   .main-pane { order: 1; flex: 1 1 auto; min-width: 0; }
   .right-sidebar-container { order: 2; flex: 0 0 16rem; width: 16rem; }
   .right-sidebar-panel { position: sticky; top: calc(var(--sl-nav-height, 3.75rem) + 1rem); }
 }
 
-/* ===== 移动端：侧栏堆叠，搜索占满整行 ===== */
+/* ===== 移动端：单栏，搜索占满，导航紧凑 ===== */
 @media (max-width: 1023px) {
   .page { display: block !important; }
-  nav.sidebar { position: static !important; height: auto !important; }
-  .sidebar-pane { position: static !important; width: auto !important; background: transparent !important; height: auto !important; }
+  nav.sidebar { display: none !important; }
   .header-inner {
     display: flex; flex-wrap: nowrap; height: var(--sl-nav-height, 3.75rem);
-    padding: 0 var(--sl-nav-pad-x, 1rem); gap: .6rem;
+    padding: 0 var(--sl-nav-pad-x, 1rem); gap: .4rem;
   }
   .dt-brand { order: 1; flex: none; }
-  .dt-theme { order: 3; margin-left: auto; flex: none; }
-  .dt-search { order: 2; width: auto; flex: 1 1 auto; min-width: 0; justify-self: stretch; }
+  .dt-search { order: 2; width: auto; flex: 1 1 auto; min-width: 0; }
+  .dt-nav-cluster { order: 3; flex: none; gap: 0; }
+  .dt-navlink { font-size: .82rem; padding: .3rem .4rem; }
+  .dt-github { padding: .3rem .4rem; }
 }
 
 /* ===== 主内容限宽 ===== */
