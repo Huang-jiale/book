@@ -174,6 +174,7 @@
   /* 文章页左栏：当前模块「古籍卷目」（方案 A） */
   function renderModuleCatalog(id) {
     var d = DOCS[id];
+    console.log('[catalog] id=' + id + ' doc=' + (d ? d.title : 'null') + ' group=' + (d ? d.group : '-') + ' groups=' + GROUPS.length);
     if (!d || !d.group) return;
     var group = null;
     for (var i = 0; i < GROUPS.length; i++) {
