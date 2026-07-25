@@ -48,19 +48,24 @@
     buildTOC(hs);
   }
 
-  /* 把 MD 里的相对 .md 链接（./02-基期量.md、./附录-xxx.md）改写成站内路由 #/doc/<id> */
+  /* 把 MD 里的相对 .md 链接（./02-基期量.md、../01-xxx.md、10-xxx.md）改写成站内路由 #/doc/<id> */
   function fixInternalLinks(currentId) {
     if (!currentId) return;
     var prefix = currentId.indexOf('-') >= 0 ? currentId.split('-')[0] : currentId;
     contentEl.querySelectorAll('a[href]').forEach(function (a) {
       var href = a.getAttribute('href') || '';
       if (!/\.md($|\?|#)/i.test(href)) return;            // 只处理指向 .md 的链接
-      var base = href.replace(/^\.?\//, '').split('#')[0].replace(/\.md$/i, '');
+      // 清理 ./ 与 ../ 前缀，去掉 .md 后缀；保留原文件名里的数字（含前导零）
+      var base = href.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '').split('#')[0].replace(/\.md$/i, '');
       var target = null;
       var m = base.match(/^(\d+)/);
       if (m) {
-        var cand = prefix + '-' + parseInt(m[1], 10);
-        if (DOCS[cand]) target = cand;
+        var n = m[1];                                     // 原样保留，例如 "02"，不再 parseInt 丢前导零
+        var cands = [prefix + '-' + n];
+        if (n.length === 1) cands.push(prefix + '-0' + n); // 兼容无前导零（如 "2"）
+        for (var k = 0; k < cands.length; k++) {
+          if (DOCS[cands[k]]) { target = cands[k]; break; }
+        }
       } else if (/附录/.test(base)) {
         var cand2 = prefix + '-appendix';
         if (DOCS[cand2]) target = cand2;
@@ -75,6 +80,7 @@
       } else {
         a.setAttribute('href', 'javascript:void(0)');
         a.style.opacity = '.5';
+        a.title = '该章节暂未收录';
       }
     });
   }
