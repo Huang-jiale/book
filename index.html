@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>知行笔记</title>
-  <meta name="description" content="知行笔记 —— 资料分析 / 判断推理 备考手册与个人知识库" />
+  <meta name="description" content="知行笔记 · 资料分析 / 判断推理 备考手册与个人知识库" />
+  <!-- 真实字体：Fraunces(标题衬线) / Geist(正文) / Geist Mono(代码)，与参考站 docs.deeptutor.info 一致 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/starlight.css" />
   <link rel="stylesheet" href="site.css" />
 </head>
@@ -13,25 +17,19 @@
   <div class="page sl-flex astro-vrdttmbt">
     <!-- 顶栏 -->
     <header class="header astro-vrdttmbt">
-      <div class="header astro-kmkmnagf">
-        <div class="title-wrapper sl-flex astro-kmkmnagf">
-          <div class="dt-brand sl-flex astro-idrpryed">
-            <a class="site-title sl-flex astro-idrpryed" href="#/">知行笔记</a>
-          </div>
-          <div class="sl-flex print:hidden astro-kmkmnagf">
-            <!-- 搜索 -->
-            <div class="dt-search">
-              <svg class="dt-search-ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-              <input id="search-input" class="dt-search-input" type="text" placeholder="搜索文档…" autocomplete="off" />
-              <div id="search-results" class="dt-search-results" hidden></div>
-            </div>
-            <!-- 主题切换 -->
-            <button id="theme-toggle" class="dt-theme" title="切换深浅色" aria-label="切换深浅色">
-              <svg class="ico-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-              <svg class="ico-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
-            </button>
-          </div>
+      <div class="header-inner">
+        <div class="dt-brand">
+          <a class="site-title" href="#/">知行笔记</a>
         </div>
+        <div class="dt-search">
+          <svg class="dt-search-ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="search-input" class="dt-search-input" type="text" placeholder="搜索文档与文章内容…" autocomplete="off" />
+          <div id="search-results" class="dt-search-results" hidden></div>
+        </div>
+        <button id="theme-toggle" class="dt-theme" title="切换深浅色" aria-label="切换深浅色">
+          <svg class="ico-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="ico-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        </button>
       </div>
     </header>
 
@@ -39,18 +37,7 @@
     <nav class="sidebar print:hidden astro-vrdttmbt">
       <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt">
         <div class="sidebar-content sl-flex astro-vrdttmbt">
-          <ul class="top-level astro-3ii7xxms">
-            <li class="astro-3ii7xxms"><a class="astro-3ii7xxms" href="#/">首页</a></li>
-            <li class="astro-3ii7xxms">
-              <details class="astro-3ii7xxms" open>
-                <summary class="astro-3ii7xxms"><span class="group-label astro-3ii7xxms"><span class="large astro-3ii7xxms">备考手册</span></span></summary>
-                <ul class="astro-3ii7xxms">
-                  <li class="astro-3ii7xxms"><a class="astro-3ii7xxms" href="#/zilaio" data-route="zilaio">资料分析备考手册</a></li>
-                  <li class="astro-3ii7xxms"><a class="astro-3ii7xxms" href="#/panduan" data-route="panduan">判断推理备考手册</a></li>
-                </ul>
-              </details>
-            </li>
-          </ul>
+          <ul class="top-level" id="sidebar-list"></ul>
         </div>
       </div>
     </nav>

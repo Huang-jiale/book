@@ -1,0 +1,154 @@
+{
+  "groups": [
+    {
+      "name": "资料分析",
+      "items": [
+        {
+          "id": "zl-readme",
+          "title": "📚 资料分析知识库",
+          "file": "content/zl-readme.md"
+        },
+        {
+          "id": "zl-01",
+          "title": "第一章 八大常用速算技巧",
+          "file": "content/zl-01.md"
+        },
+        {
+          "id": "zl-02",
+          "title": "第二章 基期量",
+          "file": "content/zl-02.md"
+        },
+        {
+          "id": "zl-03",
+          "title": "第三章 现期量",
+          "file": "content/zl-03.md"
+        },
+        {
+          "id": "zl-04",
+          "title": "第四章 增长量",
+          "file": "content/zl-04.md"
+        },
+        {
+          "id": "zl-05",
+          "title": "第五章 增长率",
+          "file": "content/zl-05.md"
+        },
+        {
+          "id": "zl-06",
+          "title": "第六章 间隔增长率",
+          "file": "content/zl-06.md"
+        },
+        {
+          "id": "zl-07",
+          "title": "第七章 乘积增长率",
+          "file": "content/zl-07.md"
+        },
+        {
+          "id": "zl-08",
+          "title": "第八章 年均增长率",
+          "file": "content/zl-08.md"
+        },
+        {
+          "id": "zl-09",
+          "title": "第九章 混合增长率",
+          "file": "content/zl-09.md"
+        },
+        {
+          "id": "zl-10",
+          "title": "第十章 现期比重、平均数、倍数",
+          "file": "content/zl-10.md"
+        },
+        {
+          "id": "zl-11",
+          "title": "第十一章 基期比重、平均数、倍数",
+          "file": "content/zl-11.md"
+        },
+        {
+          "id": "zl-12",
+          "title": "第十二章 两期比重、平均数",
+          "file": "content/zl-12.md"
+        },
+        {
+          "id": "zl-13",
+          "title": "第十三章 A和非A思想",
+          "file": "content/zl-13.md"
+        },
+        {
+          "id": "zl-appendix",
+          "title": "附录：百化分速查表",
+          "file": "content/zl-appendix.md"
+        }
+      ]
+    },
+    {
+      "name": "判断推理",
+      "items": [
+        {
+          "id": "jt-readme",
+          "title": "判断推理知识库",
+          "file": "content/jt-readme.md"
+        },
+        {
+          "id": "jt-01",
+          "title": "前言与概述",
+          "file": "content/jt-01.md"
+        },
+        {
+          "id": "jt-02",
+          "title": "图形推理-数量类①（素、面、角）",
+          "file": "content/jt-02.md"
+        },
+        {
+          "id": "jt-03",
+          "title": "图形推理-数量类②（线、点与计算规律）",
+          "file": "content/jt-03.md"
+        },
+        {
+          "id": "jt-04",
+          "title": "图形推理-位置类与属性类",
+          "file": "content/jt-04.md"
+        },
+        {
+          "id": "jt-05",
+          "title": "图形推理-样式类与重构类",
+          "file": "content/jt-05.md"
+        },
+        {
+          "id": "jt-06",
+          "title": "类比推理-概念与映射关系",
+          "file": "content/jt-06.md"
+        },
+        {
+          "id": "jt-07",
+          "title": "类比推理-语法语义与创新",
+          "file": "content/jt-07.md"
+        },
+        {
+          "id": "jt-08",
+          "title": "逻辑判断-基本逻辑原理",
+          "file": "content/jt-08.md"
+        },
+        {
+          "id": "jt-09",
+          "title": "逻辑判断-推理题型",
+          "file": "content/jt-09.md"
+        },
+        {
+          "id": "jt-10",
+          "title": "逻辑判断-加强与削弱论证",
+          "file": "content/jt-10.md"
+        },
+        {
+          "id": "jt-11",
+          "title": "定义判断",
+          "file": "content/jt-11.md"
+        },
+        {
+          "id": "jt-appendix",
+          "title": "附录-判断推理公式速查表",
+          "file": "content/jt-appendix.md"
+        }
+      ]
+    }
+  ]
+}
