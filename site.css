@@ -199,6 +199,40 @@ nav.sidebar { display: none !important; }
 .dt-github:hover { color: var(--ink); background: var(--paper-soft); }
 .dt-github svg { display: block; }
 
+/* 顶栏下拉菜单：工作 / 学习 的子模块选择 */
+.dt-dropdown { position: relative; }
+.dt-dropdown-toggle { cursor: pointer; display: inline-flex; align-items: center; }
+.dt-caret {
+  display: inline-block; width: 0; height: 0; margin-left: 5px;
+  border-left: 4px solid transparent; border-right: 4px solid transparent;
+  border-top: 5px solid currentColor; vertical-align: middle; opacity: .7;
+  transition: transform .2s ease;
+}
+.dt-dropdown.open .dt-caret { transform: rotate(180deg); }
+.dt-dropdown-menu {
+  position: absolute; top: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 172px;
+  background: var(--paper); border: 1px solid var(--rule, #e2e2e2); border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.14); padding: .4rem;
+  opacity: 0; visibility: hidden; transition: opacity .18s ease, transform .18s ease, visibility .18s;
+  z-index: 70;
+}
+.dt-dropdown.open .dt-dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.dt-dropdown-menu a {
+  display: flex; align-items: center; justify-content: space-between; gap: .6rem;
+  padding: .5rem .7rem; border-radius: 8px; color: var(--ink);
+  text-decoration: none; font-size: .9rem; transition: background .15s, color .15s;
+}
+.dt-dropdown-menu a:hover { background: var(--accent-soft, #eef4f9); color: var(--accent); }
+.dt-dropdown-menu a.active { background: var(--accent-soft, #eef4f9); color: var(--accent); font-weight: 600; }
+.dt-dropdown-menu a.dd-all {
+  color: var(--ink-soft); font-weight: 600; margin-bottom: .3rem;
+  border-bottom: 1px solid var(--rule, #eee); border-radius: 8px 8px 0 0;
+}
+.dt-dropdown-menu a .dd-en { font-size: .72rem; color: var(--ink-faint); letter-spacing: .04em; white-space: nowrap; }
+.dt-dropdown-menu a:hover .dd-en { color: var(--accent); }
+
 /* ===== 首页：书房 (Study Room) ===== */
 body.on-home .content-panel .sl-container { max-width: 1080px; }
 
@@ -300,13 +334,24 @@ body.on-home .content-panel .sl-container { max-width: 1080px; }
 }
 
 /* MODULES */
+.home-studyroom .home-intro {
+  position: relative; z-index: 1; text-align: center;
+  font-family: var(--serif); font-weight: 300; font-size: 16px;
+  color: var(--ink-soft); letter-spacing: .08em; line-height: 2;
+  max-width: 540px; margin: 8px auto 0; padding: 0 24px;
+}
+.home-studyroom .home-section-label {
+  position: relative; z-index: 1; text-align: center;
+  font-family: var(--display); font-size: 14px; letter-spacing: .35em;
+  color: var(--gold-muted); margin: 36px 0 4px;
+}
 .home-studyroom .modules-grid {
   position: relative;
   z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
-  margin: 8px 0 40px;
+  margin: 24px 0 40px;
   padding: 0 8px;
 }
 .home-studyroom .module-card {
@@ -447,6 +492,8 @@ body.on-home .content-panel .sl-container { max-width: 1080px; }
   .dt-nav-cluster { order: 3; flex: none; gap: 0; }
   .dt-navlink { font-size: .82rem; padding: .3rem .4rem; }
   .dt-github { padding: .3rem .4rem; }
+  .dt-dropdown-menu { left: auto; right: 0; transform: translateY(-6px); min-width: 150px; }
+  .dt-dropdown.open .dt-dropdown-menu { transform: translateY(0); }
 }
 
 /* ===== 主内容限宽 ===== */
