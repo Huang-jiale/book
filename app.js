@@ -268,41 +268,37 @@
     tocEl.innerHTML = '';
     document.body.classList.add('on-home');
     var home = (manifest && manifest.home) ? manifest.home : [];
-    var html = '<div class="home-studyroom">';
-    html += '<header class="hero">';
-    html += '<div class="hero-seal"><span>心</span></div>';
-    html += '<h1 class="hero-title">书房</h1>';
-    html += '<p class="hero-subtitle">INNER STUDY — WORK &amp; LEARN</p>';
-    html += '</header>';
-    html += '<p class="home-intro">在书房的方寸之间，安放工作的方法与学习的沉淀。<br/>择一隅，开始你的整理。</p>';
-    html += '<div class="home-section-label">· 工 作 与 学 习 ·</div>';
-    html += '<section class="modules-grid">';
+    var html = '<div class="home-v2">';
+    html += '<div class="home-v2-inner">';
+    html += '<section class="hv-hero">';
+    html += '<div class="hv-seal"><span>心</span></div>';
+    html += '<h1 class="hv-title">书房</h1>';
+    html += '<p class="hv-sub">INNER STUDY — WORK &amp; LEARN</p>';
+    html += '</section>';
+    html += '<div class="hv-label"><span class="hv-label-line"></span><span class="hv-label-text">双轨</span><span class="hv-label-line"></span></div>';
+    html += '<div class="hv-grid">';
     home.forEach(function (p) {
-      var dm = p.key === 'work' ? 'work' : 'study';
-      html += '<article class="module-card" data-module="' + dm + '">';
-      html += '<div class="deco-circle deco-1"></div><div class="deco-circle deco-2"></div>';
-      html += '<h2 class="module-title">' + escapeHtml(p.title) + '</h2>';
-      html += '<p class="module-en">' + (dm === 'work' ? 'Workstream' : 'Examination &amp; AI') + '</p>';
-      html += '<div class="module-divider"></div>';
-      html += '<ul class="module-items">';
+      var dm = p.key;
+      html += '<article class="hv-card" data-module="' + dm + '">';
+      html += '<h2 class="hv-card-title">' + escapeHtml(p.title) + '</h2>';
+      html += '<p class="hv-card-en">' + (dm === 'work' ? 'Workstream' : 'Examination &amp; AI') + '</p>';
+      html += '<div class="hv-divider"></div>';
+      html += '<ul class="hv-items">';
       (p.items || []).forEach(function (it) {
         var en = EN[it.key] || '';
-        html += '<li><a class="module-item" href="#/cat/' + it.key + '">';
-        html += '<span class="module-item-dot"></span>';
+        html += '<li><a class="hv-item" href="#/cat/' + it.key + '">';
+        html += '<span class="hv-item-dot"></span>';
         html += '<span>' + escapeHtml(it.label) + '</span>';
-        html += '<span class="module-item-tag">' + escapeHtml(en) + '</span>';
+        html += '<span class="hv-item-tag">' + escapeHtml(en) + '</span>';
         html += '</a></li>';
       });
       html += '</ul></article>';
     });
-    html += '</section>';
-    html += '<footer class="footer">';
-    html += '<p class="footer-text">静以修身 · 学以广才</p>';
-    html += '<p class="footer-mark">STUDIO</p>';
-    html += '</footer>';
+    html += '</div>';
+    html += '</div>';
     html += '</div>';
     contentEl.innerHTML = html;
-    contentEl.querySelectorAll('.module-item').forEach(function (a) {
+    contentEl.querySelectorAll('.hv-item').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); location.hash = a.getAttribute('href').replace(/^#/, ''); });
     });
   }
