@@ -4,11 +4,6 @@
       "name": "资料分析",
       "items": [
         {
-          "id": "zl-readme",
-          "title": "📚 资料分析知识库",
-          "file": "content/zl-readme.md"
-        },
-        {
           "id": "zl-01",
           "title": "第一章 八大常用速算技巧",
           "file": "content/zl-01.md"
@@ -83,11 +78,6 @@
     {
       "name": "判断推理",
       "items": [
-        {
-          "id": "jt-readme",
-          "title": "判断推理知识库",
-          "file": "content/jt-readme.md"
-        },
         {
           "id": "jt-01",
           "title": "前言与概述",
