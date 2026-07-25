@@ -36,9 +36,7 @@ header.header { position: sticky; top: 0; z-index: 40; }
   gap: 1rem;
   height: var(--sl-nav-height, 3.75rem);
   padding: 0 var(--sl-nav-pad-x, 1.5rem);
-  background: color-mix(in srgb, var(--paper) 97%, transparent);
-  backdrop-filter: saturate(180%) blur(12px);
-  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  background: var(--paper);
   border-bottom: 1px solid var(--rule, #ddd);
 }
 .dt-brand { justify-self: start; }
@@ -128,7 +126,7 @@ header.header { position: sticky; top: 0; z-index: 40; }
     width: auto !important; height: auto !important;
     overflow: visible !important; visibility: visible !important;
   }
-  .main-frame { grid-area: main; min-width: 0; }
+  .main-frame { grid-area: main; min-width: 0; background: var(--paper); }
   .lg\:sl-flex { flex-direction: row; }
   .main-pane { order: 1; flex: 1 1 auto; min-width: 0; }
   .right-sidebar-container { order: 2; flex: 0 0 16rem; width: 16rem; }
