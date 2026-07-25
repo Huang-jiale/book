@@ -573,6 +573,17 @@ body.on-home .right-sidebar-container { display: none; }
   --cat-gold: #c8b48a;
 }
 body.on-doc nav.sidebar { display: block !important; }
+/* 覆盖 Starlight 默认给 .sidebar-pane 的 visibility:hidden / position:fixed / width:100% */
+body.on-doc .sidebar-pane,
+body.on-doc .sidebar-content {
+  visibility: visible !important;
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  background: transparent !important;
+}
 @media (min-width: 1024px) {
   body.on-doc .page {
     grid-template-columns: 220px 1fr !important;
@@ -590,9 +601,29 @@ body.on-doc nav.sidebar { display: block !important; }
     border-right: 1px solid var(--cat-rule);
     padding: 0;
   }
+  body.on-doc .sidebar-pane,
+  body.on-doc .sidebar-content {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
   body.on-doc .main-frame { grid-area: main; max-width: none; }
 }
 #sidebar-list { list-style: none; margin: 0; padding: 0; }
+
+/* 浅色主题下强制正文区文字为深色，避免 Starlight 把 th 等设为白色 */
+html:not([data-theme=dark]) #content,
+html:not([data-theme=dark]) #content h1,
+html:not([data-theme=dark]) #content h2,
+html:not([data-theme=dark]) #content h3,
+html:not([data-theme=dark]) #content h4,
+html:not([data-theme=dark]) #content p,
+html:not([data-theme=dark]) #content li,
+html:not([data-theme=dark]) #content th,
+html:not([data-theme=dark]) #content td { color: var(--ink, #18181c); }
+html:not([data-theme=dark]) #content th,
+html:not([data-theme=dark]) #content td { color: var(--ink, #18181c) !important; }
 .mm-cat-head {
   padding: .9rem .7rem .75rem;
   text-align: center;
