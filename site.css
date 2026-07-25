@@ -125,8 +125,9 @@ header.header,
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   border-bottom: 1px solid var(--rule, #ddd) !important;
+  overflow: visible !important;
 }
-header.header { z-index: 40; }
+header.header { z-index: 100; }
 /* 整体去掉左侧边栏，改为清爽单栏布局 */
 nav.sidebar { display: none !important; }
 .header-inner {
@@ -199,36 +200,46 @@ nav.sidebar { display: none !important; }
 .dt-github:hover { color: var(--ink); background: var(--paper-soft); }
 .dt-github svg { display: block; }
 
-/* 顶栏下拉菜单：工作 / 学习 的子模块选择 */
+/* 顶栏下拉菜单：工作 / 学习 的子模块选择（桌面悬停 或 点击 .open 均可展开） */
 .dt-dropdown { position: relative; }
-.dt-dropdown-toggle { cursor: pointer; display: inline-flex; align-items: center; }
+.dt-dropdown-toggle {
+  cursor: pointer; display: inline-flex; align-items: center; gap: .12rem;
+}
+.dt-dropdown-toggle:hover { color: var(--ink); background: var(--paper-soft); }
 .dt-caret {
-  display: inline-block; width: 0; height: 0; margin-left: 5px;
+  display: inline-block; width: 0; height: 0; margin-left: 4px;
   border-left: 4px solid transparent; border-right: 4px solid transparent;
-  border-top: 5px solid currentColor; vertical-align: middle; opacity: .7;
-  transition: transform .2s ease;
+  border-top: 5px solid currentColor; vertical-align: middle; opacity: .6;
+  transition: transform .2s ease, opacity .2s ease;
 }
-.dt-dropdown.open .dt-caret { transform: rotate(180deg); }
+.dt-dropdown:hover .dt-caret,
+.dt-dropdown.open .dt-caret { transform: rotate(180deg); opacity: 1; }
 .dt-dropdown-menu {
-  position: absolute; top: calc(100% + 10px); left: 50%;
+  position: absolute; top: calc(100% + 12px); left: 50%;
   transform: translateX(-50%) translateY(-6px);
-  min-width: 172px;
-  background: var(--paper); border: 1px solid var(--rule, #e2e2e2); border-radius: 12px;
-  box-shadow: 0 12px 40px rgba(0,0,0,.14); padding: .4rem;
-  opacity: 0; visibility: hidden; transition: opacity .18s ease, transform .18s ease, visibility .18s;
-  z-index: 70;
+  min-width: 214px;
+  background: var(--paper); border: 1px solid var(--rule, #e6e6e6); border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(20,20,40,.18); padding: .5rem;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease, visibility .18s;
+  z-index: 999;
 }
-.dt-dropdown.open .dt-dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+/* 展开：悬停 或 点击态 都触发，双保险 */
+.dt-dropdown:hover .dt-dropdown-menu,
+.dt-dropdown.open .dt-dropdown-menu {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
 .dt-dropdown-menu a {
   display: flex; align-items: center; justify-content: space-between; gap: .6rem;
-  padding: .5rem .7rem; border-radius: 8px; color: var(--ink);
-  text-decoration: none; font-size: .9rem; transition: background .15s, color .15s;
+  padding: .52rem .7rem; border-radius: 9px; color: var(--ink);
+  text-decoration: none; font-size: .92rem; transition: background .15s, color .15s;
 }
 .dt-dropdown-menu a:hover { background: var(--accent-soft, #eef4f9); color: var(--accent); }
 .dt-dropdown-menu a.active { background: var(--accent-soft, #eef4f9); color: var(--accent); font-weight: 600; }
 .dt-dropdown-menu a.dd-all {
-  color: var(--ink-soft); font-weight: 600; margin-bottom: .3rem;
-  border-bottom: 1px solid var(--rule, #eee); border-radius: 8px 8px 0 0;
+  color: var(--ink-soft); font-weight: 600; margin-bottom: .28rem;
+  border-bottom: 1px solid var(--rule, #eee); border-radius: 9px 9px 0 0;
 }
 .dt-dropdown-menu a .dd-en { font-size: .72rem; color: var(--ink-faint); letter-spacing: .04em; white-space: nowrap; }
 .dt-dropdown-menu a:hover .dd-en { color: var(--accent); }
@@ -492,8 +503,9 @@ body.on-home .content-panel .sl-container { max-width: 1080px; }
   .dt-nav-cluster { order: 3; flex: none; gap: 0; }
   .dt-navlink { font-size: .82rem; padding: .3rem .4rem; }
   .dt-github { padding: .3rem .4rem; }
-  .dt-dropdown-menu { left: auto; right: 0; transform: translateY(-6px); min-width: 150px; }
-  .dt-dropdown.open .dt-dropdown-menu { transform: translateY(0); }
+  .dt-dropdown-menu { left: auto; right: 0; transform: translateY(-6px); min-width: 168px; }
+  .dt-dropdown.open .dt-dropdown-menu,
+  .dt-dropdown:hover .dt-dropdown-menu { transform: translateY(0); }
 }
 
 /* ===== 主内容限宽 ===== */
