@@ -311,6 +311,11 @@
   /* ---------- 模块分类页（首页子标签着陆，亦支持 工作/学习 总览） ---------- */
   function renderCat(key) {
     if (!manifest || !manifest.home) { contentEl.innerHTML = '<h1>页面不存在</h1><p>返回 <a href="#/">首页</a></p>'; return; }
+    /* 国考 / 广东省考 / 事业编：渲染为思维导图 */
+    if (manifest.mindmapExams && manifest.mindmapExams.indexOf(key) >= 0 && manifest.mindmap) {
+      renderMindMap(key);
+      return;
+    }
     var pillar = null, item = null;
     manifest.home.forEach(function (p) {
       if (p.key === key) { pillar = p; return; }
@@ -355,6 +360,55 @@
     });
     setActive('__home');
     renderPagination(null);
+    window.scrollTo(0, 0);
+  }
+
+  /* ---------- 思维导图页（国考 / 广东省考 / 事业编） ---------- */
+  function renderMindMap(key) {
+    tocEl.innerHTML = '';
+    document.body.classList.add('on-home');
+
+    /* 取考试名（国考/广东省考/事业编） */
+    var examTitle = key;
+    if (manifest.home) {
+      manifest.home.forEach(function (p) {
+        (p.items || []).forEach(function (it) { if (it.key === key) examTitle = it.label; });
+      });
+    }
+
+    function leaf(it) {
+      var label = escapeHtml(it.name);
+      if (it.doc && DOCS[it.doc]) {
+        return '<li><a class="mm-node mm-leaf" href="#/doc/' + it.doc + '">' + label + '</a></li>';
+      }
+      return '<li><span class="mm-node mm-leaf mm-soon" title="整理中">' + label + '<em>整理中</em></span></li>';
+    }
+
+    var branchHtml = (manifest.mindmap.branches || []).map(function (br) {
+      var kids = (br.children || []).map(leaf).join('');
+      return '<li><div class="mm-node mm-branch">' + escapeHtml(br.name) + '</div>' +
+             '<ul class="mm-tree">' + kids + '</ul></li>';
+    }).join('');
+
+    var html = '<div class="mm">';
+    html += '<div class="mm-head"><a class="cat-back" href="#/">← 首页</a></div>';
+    html += '<div class="mm-top">';
+    html += '<h1 class="mm-title">' + escapeHtml(examTitle) + ' · 知识导图</h1>';
+    html += '<p class="mm-sub">行测 / 申论 · 点击节点进入对应模块</p>';
+    html += '</div>';
+    html += '<ul class="mm-tree">';
+    html += '<li><div class="mm-node mm-root">' + escapeHtml(examTitle) + '</div>';
+    html += '<ul class="mm-tree">' + branchHtml + '</ul>';
+    html += '</li></ul>';
+    html += '</div>';
+
+    contentEl.innerHTML = html;
+    contentEl.querySelectorAll('a[href^="#/doc/"], a[href^="#/cat/"]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); location.hash = a.getAttribute('href').replace(/^#/, ''); });
+    });
+    setActive('__home');
+    renderPagination(null);
+    document.title = examTitle + ' · 书房';
     window.scrollTo(0, 0);
   }
 
