@@ -192,38 +192,72 @@
     return a;
   }
 
-  /* ---------- 首页手风琴 ---------- */
+  /* ---------- 首页：双柱门厅 ---------- */
   function renderHome() {
     tocEl.innerHTML = '';
     document.body.classList.add('on-home');
-    var html = '<div class="home-accordion">';
-    GROUPS.forEach(function (g) {
-      var label = g.name === '资料分析' ? '资料分析备考手册' : '判断推理备考手册';
-      html += '<section class="acc-module">';
-      html += '<button class="acc-head" type="button" aria-expanded="false">';
-      html += '<span class="acc-title">' + escapeHtml(label) + '</span>';
-      html += '<svg class="acc-chevron" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>';
-      html += '</button>';
-      html += '<div class="acc-body" hidden><ul class="acc-list">';
-      g.ids.forEach(function (id) {
-        html += '<li><a href="#/doc/' + id + '">' + escapeHtml(DOCS[id].title) + '</a></li>';
+    var home = (manifest && manifest.home) ? manifest.home : [];
+    var html = '';
+    html += '<div class="home-hero">';
+    html += '<div class="home-title">知行笔记</div>';
+    html += '<div class="home-sub">两年计划 · 2026 下半年 — 2028 上半年</div>';
+    html += '<div class="home-tagline">把工作做成作品，把学习变成底气。</div>';
+    html += '</div>';
+    html += '<div class="home-pillars">';
+    home.forEach(function (p) {
+      var ico = p.key === 'work' ? '💼' : '📚';
+      html += '<section class="pillar-card">';
+      html += '<div class="pillar-head"><span class="pillar-ico">' + ico + '</span>';
+      html += '<div><div class="pillar-title">' + escapeHtml(p.title) + '</div>';
+      html += '<div class="pillar-desc">' + escapeHtml(p.desc || '') + '</div></div></div>';
+      html += '<div class="pillar-tags">';
+      (p.items || []).forEach(function (it) {
+        html += '<a class="pillar-tag" href="#/cat/' + it.key + '">' + escapeHtml(it.label) + '</a>';
       });
-      html += '</ul></div></section>';
+      html += '</div></section>';
     });
     html += '</div>';
+    html += '<div class="home-foot">点击任一模块进入对应笔记 ↗</div>';
     contentEl.innerHTML = html;
-
-    contentEl.querySelectorAll('.acc-head').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var body = btn.nextElementSibling;
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        body.hidden = open;
-      });
-    });
-    contentEl.querySelectorAll('.acc-list a').forEach(function (a) {
+    contentEl.querySelectorAll('.pillar-tag').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); location.hash = a.getAttribute('href').replace(/^#/, ''); });
     });
+  }
+
+  /* ---------- 模块分类页（首页子标签着陆） ---------- */
+  function renderCat(key) {
+    if (!manifest || !manifest.home) { contentEl.innerHTML = '<h1>页面不存在</h1><p>返回 <a href="#/">首页</a></p>'; return; }
+    var pillar = null, item = null;
+    manifest.home.forEach(function (p) {
+      (p.items || []).forEach(function (it) { if (it.key === key) { pillar = p; item = it; } });
+    });
+    if (!item) { contentEl.innerHTML = '<h1>页面不存在</h1><p>返回 <a href="#/">首页</a></p>'; return; }
+    tocEl.innerHTML = '';
+    document.body.classList.add('on-home');
+    var ids = (manifest.catPages && manifest.catPages[key]) ? manifest.catPages[key] : [];
+    var html = '';
+    html += '<div class="cat-back"><a href="#/">← 首页</a> · <span>' + escapeHtml(pillar.title) + '</span></div>';
+    html += '<div class="cat-title">' + escapeHtml(pillar.title) + ' · ' + escapeHtml(item.label) + '</div>';
+    if (!ids.length) {
+      html += '<div class="cat-empty">该模块笔记整理中，敬请期待 📝</div>';
+    } else {
+      if (key === 'gk' || key === 'gd' || key === 'syb') {
+        html += '<div class="cat-note">以下为考公通用素材（行测 / 申论），适用于' + escapeHtml(item.label) + '等考试。</div>';
+      }
+      html += '<ul class="cat-list">';
+      ids.forEach(function (id) {
+        if (DOCS[id]) html += '<li><a class="cat-list-link" href="#/doc/' + id + '">' + escapeHtml(DOCS[id].title) + '</a></li>';
+      });
+      html += '</ul>';
+    }
+    contentEl.innerHTML = html;
+    contentEl.querySelectorAll('a[href^="#/doc/"]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); location.hash = a.getAttribute('href').replace(/^#/, ''); });
+    });
+    setActive('__home');
+    renderPagination(null);
+    document.title = pillar.title + ' · ' + item.label + ' · 知行笔记';
+    window.scrollTo(0, 0);
   }
 
   /* ---------- 路由 ---------- */
@@ -292,6 +326,10 @@
       renderPagination(null);
       document.title = '知行笔记';
       return;
+    }
+    if (route.indexOf('cat/') === 0) {
+      var ckey = route.slice(4);
+      if (manifest && manifest.home) { renderCat(ckey); return; }
     }
     if (route.indexOf('doc/') === 0) {
       var id = route.slice(4);
