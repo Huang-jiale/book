@@ -171,6 +171,43 @@
     });
   }
 
+  /* 文章页左栏：当前模块「古籍卷目」（方案 A） */
+  function renderModuleCatalog(id) {
+    var d = DOCS[id];
+    if (!d || !d.group) return;
+    var group = null;
+    for (var i = 0; i < GROUPS.length; i++) {
+      if (GROUPS[i].name === d.group) { group = GROUPS[i]; break; }
+    }
+    if (!group || !group.ids.length) return;
+    var CN = ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十'];
+    var html = '';
+    html += '<li class="mm-cat-head">';
+    html += '<a class="mm-cat-back" href="#/cat/study">≡ 总书目</a>';
+    html += '<span class="mm-cat-title">' + escapeHtml(d.group) + '</span>';
+    html += '<span class="mm-cat-sub">卷 目</span>';
+    html += '</li>';
+    group.ids.forEach(function (gid, idx) {
+      var t = DOCS[gid] ? DOCS[gid].title : gid;
+      var no = '', name = t;
+      if (group.ids.length === 1) {
+        name = t;
+      } else if (/appendix$/.test(gid)) {
+        no = '附';
+        name = t.replace(/^附录[：:]\s*/, '');
+      } else {
+        no = '卷' + (CN[idx + 1] || (idx + 1));
+        name = t.replace(/^第[一二三四五六七八九十百零\d]+章\s*/, '');
+      }
+      var act = (gid === id) ? ' active' : '';
+      html += '<li><a class="mm-vol' + act + '" href="#/doc/' + gid + '" title="' + escapeHtml(t) + '">';
+      if (no) html += '<span class="vol-no">' + no + '</span>';
+      html += '<span class="vol-name">' + escapeHtml(name) + '</span>';
+      html += '</a></li>';
+    });
+    sidebarEl.innerHTML = html;
+  }
+
   function setActive(route) {
     document.querySelectorAll('.sidebar a[data-route]').forEach(function (a) {
       if (a.dataset.route === route) a.setAttribute('aria-current', 'page');
@@ -266,6 +303,7 @@
   /* ---------- 首页：书房 (Study Room) ---------- */
   function renderHome() {
     tocEl.innerHTML = '';
+    document.body.classList.remove('on-doc');
     document.body.classList.add('on-home');
     var home = (manifest && manifest.home) ? manifest.home : [];
     var html = '<div class="home-v2">';
@@ -310,6 +348,7 @@
 
   /* ---------- 模块分类页（首页子标签着陆，亦支持 工作/学习 总览） ---------- */
   function renderCat(key) {
+    document.body.classList.remove('on-doc');
     if (!manifest || !manifest.home) { contentEl.innerHTML = '<h1>页面不存在</h1><p>返回 <a href="#/">首页</a></p>'; return; }
     /* 国考 / 广东省考 / 事业编：渲染为思维导图 */
     if (manifest.mindmapExams && manifest.mindmapExams.indexOf(key) >= 0 && manifest.mindmap) {
@@ -366,6 +405,7 @@
   /* ---------- 思维导图页（国考 / 广东省考 / 事业编） ---------- */
   function renderMindMap(key) {
     tocEl.innerHTML = '';
+    document.body.classList.remove('on-doc');
     document.body.classList.add('on-home');
 
     /* 取考试名（国考/广东省考/事业编） */
@@ -459,6 +499,8 @@
     setActive(id);
     renderPagination(id);
     document.body.classList.remove('on-home');
+    document.body.classList.add('on-doc');
+    renderModuleCatalog(id);
     if (pendingScroll) {
       scrollToMatch(pendingScroll);
       pendingScroll = null;
