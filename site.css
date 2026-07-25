@@ -38,6 +38,7 @@ header.header { position: sticky; top: 0; z-index: 40; }
   padding: 0 var(--sl-nav-pad-x, 1.5rem);
   background: var(--paper);
   border-bottom: 1px solid var(--rule, #ddd);
+  box-shadow: 0 1px 0 var(--rule), 0 4px 20px rgba(0,0,0,.06);
 }
 .dt-brand { justify-self: start; }
 .site-title {
@@ -117,7 +118,7 @@ header.header { position: sticky; top: 0; z-index: 40; }
   nav.sidebar {
     grid-area: side; position: sticky; top: var(--sl-nav-height, 3.75rem);
     align-self: start; height: calc(100vh - var(--sl-nav-height, 3.75rem)); overflow-y: auto;
-    background: var(--paper); padding-top: 1rem;
+    background: var(--paper); padding-top: 1.5rem;
   }
   /* 取消 starlight.css 原生的 position:fixed，让侧栏跟随网格内的 sticky 容器，
      避免与半透明顶栏重叠 / 顶栏透出侧栏文字 */
@@ -126,7 +127,7 @@ header.header { position: sticky; top: 0; z-index: 40; }
     width: auto !important; height: auto !important;
     overflow: visible !important; visibility: visible !important;
   }
-  .main-frame { grid-area: main; min-width: 0; background: var(--paper); }
+  .main-frame { grid-area: main; min-width: 0; background: var(--paper); padding-top: .5rem; }
   .lg\:sl-flex { flex-direction: row; }
   .main-pane { order: 1; flex: 1 1 auto; min-width: 0; }
   .right-sidebar-container { order: 2; flex: 0 0 16rem; width: 16rem; }
