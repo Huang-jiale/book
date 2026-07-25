@@ -292,13 +292,15 @@
         html += '<span class="hv-item-tag">' + escapeHtml(en) + '</span>';
         html += '</a></li>';
       });
-      html += '</ul></article>';
+      html += '</ul>';
+      html += '<a class="hv-card-foot" href="#/cat/' + dm + '">查看全部 →</a>';
+      html += '</article>';
     });
     html += '</div>';
     html += '</div>';
     html += '</div>';
     contentEl.innerHTML = html;
-    contentEl.querySelectorAll('.hv-item').forEach(function (a) {
+    contentEl.querySelectorAll('.hv-item, .hv-card-foot').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); location.hash = a.getAttribute('href').replace(/^#/, ''); });
     });
   }
