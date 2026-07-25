@@ -40,11 +40,43 @@
   }
 
   /* ---------- markdown 渲染 ---------- */
-  function renderMarkdown(md) {
+  function renderMarkdown(md, currentId) {
     contentEl.innerHTML = window.marked.parse(md);
     var hs = contentEl.querySelectorAll('h1, h2, h3');
     hs.forEach(function (h, i) { if (!h.id) h.id = slugify(h.textContent) + '-' + i; });
+    fixInternalLinks(currentId);
     buildTOC(hs);
+  }
+
+  /* 把 MD 里的相对 .md 链接（./02-基期量.md、./附录-xxx.md）改写成站内路由 #/doc/<id> */
+  function fixInternalLinks(currentId) {
+    if (!currentId) return;
+    var prefix = currentId.indexOf('-') >= 0 ? currentId.split('-')[0] : currentId;
+    contentEl.querySelectorAll('a[href]').forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (!/\.md($|\?|#)/i.test(href)) return;            // 只处理指向 .md 的链接
+      var base = href.replace(/^\.?\//, '').split('#')[0].replace(/\.md$/i, '');
+      var target = null;
+      var m = base.match(/^(\d+)/);
+      if (m) {
+        var cand = prefix + '-' + parseInt(m[1], 10);
+        if (DOCS[cand]) target = cand;
+      } else if (/附录/.test(base)) {
+        var cand2 = prefix + '-appendix';
+        if (DOCS[cand2]) target = cand2;
+      }
+      if (!target && /前言|概述/.test(base)) {
+        var cand3 = prefix + '-01';
+        if (DOCS[cand3]) target = cand3;
+      }
+      if (target) {
+        a.setAttribute('href', '#/doc/' + target);
+        a.classList.add('doc-link');
+      } else {
+        a.setAttribute('href', 'javascript:void(0)');
+        a.style.opacity = '.5';
+      }
+    });
   }
 
   /* ---------- 右侧目录（保持原有逻辑） ---------- */
@@ -198,13 +230,13 @@
     var d = DOCS[id];
     if (!d) return;
     if (mdCache[d.file]) {
-      renderMarkdown(mdCache[d.file]);
+      renderMarkdown(mdCache[d.file], id);
       afterRender(id);
       return;
     }
     fetch(d.file).then(function (r) { return r.text(); }).then(function (md) {
       mdCache[d.file] = md;
-      renderMarkdown(md);
+      renderMarkdown(md, id);
       afterRender(id);
     }).catch(function () {
       contentEl.innerHTML = '<h1>加载失败</h1><p>' + escapeHtml(d.file) + '</p>';
