@@ -192,34 +192,45 @@
     return a;
   }
 
-  /* ---------- 首页：双柱门厅 ---------- */
+  /* ---------- 首页：书房 (Study Room) ---------- */
   function renderHome() {
     tocEl.innerHTML = '';
     document.body.classList.add('on-home');
     var home = (manifest && manifest.home) ? manifest.home : [];
-    var html = '';
-    html += '<div class="home-hero">';
-    html += '<div class="home-title">知行笔记</div>';
-    html += '<div class="home-sub">两年计划 · 2026 下半年 — 2028 上半年</div>';
-    html += '<div class="home-tagline">把工作做成作品，把学习变成底气。</div>';
-    html += '</div>';
-    html += '<div class="home-pillars">';
+    var EN = { ops: 'Operations', pd: 'Product Dev', gk: 'National', gd: 'Guangdong', syb: 'Institution', ai: 'Artificial Intelligence' };
+    var html = '<div class="home-studyroom">';
+    html += '<header class="hero">';
+    html += '<div class="hero-seal"><span>心</span></div>';
+    html += '<h1 class="hero-title">书房</h1>';
+    html += '<p class="hero-subtitle">INNER STUDY — WORK &amp; LEARN</p>';
+    html += '</header>';
+    html += '<section class="modules-grid">';
     home.forEach(function (p) {
-      var ico = p.key === 'work' ? '💼' : '📚';
-      html += '<section class="pillar-card">';
-      html += '<div class="pillar-head"><span class="pillar-ico">' + ico + '</span>';
-      html += '<div><div class="pillar-title">' + escapeHtml(p.title) + '</div>';
-      html += '<div class="pillar-desc">' + escapeHtml(p.desc || '') + '</div></div></div>';
-      html += '<div class="pillar-tags">';
+      var dm = p.key === 'work' ? 'work' : 'study';
+      html += '<article class="module-card" data-module="' + dm + '">';
+      html += '<div class="deco-circle deco-1"></div><div class="deco-circle deco-2"></div>';
+      html += '<h2 class="module-title">' + escapeHtml(p.title) + '</h2>';
+      html += '<p class="module-en">' + (dm === 'work' ? 'Workstream' : 'Examination &amp; AI') + '</p>';
+      html += '<div class="module-divider"></div>';
+      html += '<ul class="module-items">';
       (p.items || []).forEach(function (it) {
-        html += '<a class="pillar-tag" href="#/cat/' + it.key + '">' + escapeHtml(it.label) + '</a>';
+        var en = EN[it.key] || '';
+        html += '<li><a class="module-item" href="#/cat/' + it.key + '">';
+        html += '<span class="module-item-dot"></span>';
+        html += '<span>' + escapeHtml(it.label) + '</span>';
+        html += '<span class="module-item-tag">' + escapeHtml(en) + '</span>';
+        html += '</a></li>';
       });
-      html += '</div></section>';
+      html += '</ul></article>';
     });
+    html += '</section>';
+    html += '<footer class="footer">';
+    html += '<p class="footer-text">静以修身 · 学以广才</p>';
+    html += '<p class="footer-mark">STUDIO</p>';
+    html += '</footer>';
     html += '</div>';
-    html += '<div class="home-foot">点击任一模块进入对应笔记 ↗</div>';
     contentEl.innerHTML = html;
-    contentEl.querySelectorAll('.pillar-tag').forEach(function (a) {
+    contentEl.querySelectorAll('.module-item').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); location.hash = a.getAttribute('href').replace(/^#/, ''); });
     });
   }
