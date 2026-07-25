@@ -140,5 +140,35 @@
         }
       ]
     }
-  ]
+  ],
+  "home": [
+    {
+      "key": "work",
+      "title": "工作",
+      "desc": "把每天的事，做成拿得出手的作品",
+      "items": [
+        { "key": "ops", "label": "运营" },
+        { "key": "pd", "label": "产品开发" }
+      ]
+    },
+    {
+      "key": "study",
+      "title": "学习",
+      "desc": "把目标，拆解成每天的底气",
+      "items": [
+        { "key": "gk", "label": "国考" },
+        { "key": "gd", "label": "广东省考" },
+        { "key": "syb", "label": "事业编" },
+        { "key": "ai", "label": "AI 类" }
+      ]
+    }
+  ],
+  "catPages": {
+    "gk":  ["zl-01","zl-02","zl-03","zl-04","zl-05","zl-06","zl-07","zl-08","zl-09","zl-10","zl-11","zl-12","zl-13","zl-appendix","jt-01","jt-02","jt-03","jt-04","jt-05","jt-06","jt-07","jt-08","jt-09","jt-10","jt-11","jt-appendix"],
+    "gd":  ["zl-01","zl-02","zl-03","zl-04","zl-05","zl-06","zl-07","zl-08","zl-09","zl-10","zl-11","zl-12","zl-13","zl-appendix","jt-01","jt-02","jt-03","jt-04","jt-05","jt-06","jt-07","jt-08","jt-09","jt-10","jt-11","jt-appendix"],
+    "syb": ["zl-01","zl-02","zl-03","zl-04","zl-05","zl-06","zl-07","zl-08","zl-09","zl-10","zl-11","zl-12","zl-13","zl-appendix","jt-01","jt-02","jt-03","jt-04","jt-05","jt-06","jt-07","jt-08","jt-09","jt-10","jt-11","jt-appendix"],
+    "ai":  [],
+    "ops": [],
+    "pd":  []
+  }
 }
