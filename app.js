@@ -355,7 +355,7 @@
     document.body.classList.remove('on-doc');
     if (!manifest || !manifest.home) { contentEl.innerHTML = '<h1>页面不存在</h1><p>返回 <a href="#/">首页</a></p>'; return; }
     /* 国考 / 广东省考 / 事业编：渲染为思维导图 */
-    if (manifest.mindmapExams && manifest.mindmapExams.indexOf(key) >= 0 && manifest.mindmap) {
+    if (manifest.mindmapExams && manifest.mindmapExams.indexOf(key) >= 0 && manifest.mindmaps && manifest.mindmaps[key]) {
       renderMindMap(key);
       return;
     }
@@ -428,7 +428,7 @@
       return '<li><span class="mm-node mm-leaf mm-soon" title="整理中">' + label + '<em>整理中</em></span></li>';
     }
 
-    var branchHtml = (manifest.mindmap.branches || []).map(function (br) {
+    var branchHtml = ((manifest.mindmaps[key] && manifest.mindmaps[key].branches) || []).map(function (br) {
       var kids = (br.children || []).map(leaf).join('');
       return '<li><div class="mm-node mm-branch">' + escapeHtml(br.name) + '</div>' +
              '<ul class="mm-tree">' + kids + '</ul></li>';
