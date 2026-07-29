@@ -3,141 +3,37 @@
     {
       "name": "资料分析",
       "items": [
-        {
-          "id": "zl-01",
-          "title": "第一章 八大常用速算技巧",
-          "file": "content/zl-01.md"
-        },
-        {
-          "id": "zl-02",
-          "title": "第二章 基期量",
-          "file": "content/zl-02.md"
-        },
-        {
-          "id": "zl-03",
-          "title": "第三章 现期量",
-          "file": "content/zl-03.md"
-        },
-        {
-          "id": "zl-04",
-          "title": "第四章 增长量",
-          "file": "content/zl-04.md"
-        },
-        {
-          "id": "zl-05",
-          "title": "第五章 增长率",
-          "file": "content/zl-05.md"
-        },
-        {
-          "id": "zl-06",
-          "title": "第六章 间隔增长率",
-          "file": "content/zl-06.md"
-        },
-        {
-          "id": "zl-07",
-          "title": "第七章 乘积增长率",
-          "file": "content/zl-07.md"
-        },
-        {
-          "id": "zl-08",
-          "title": "第八章 年均增长率",
-          "file": "content/zl-08.md"
-        },
-        {
-          "id": "zl-09",
-          "title": "第九章 混合增长率",
-          "file": "content/zl-09.md"
-        },
-        {
-          "id": "zl-10",
-          "title": "第十章 现期比重、平均数、倍数",
-          "file": "content/zl-10.md"
-        },
-        {
-          "id": "zl-11",
-          "title": "第十一章 基期比重、平均数、倍数",
-          "file": "content/zl-11.md"
-        },
-        {
-          "id": "zl-12",
-          "title": "第十二章 两期比重、平均数",
-          "file": "content/zl-12.md"
-        },
-        {
-          "id": "zl-13",
-          "title": "第十三章 A和非A思想",
-          "file": "content/zl-13.md"
-        },
-        {
-          "id": "zl-appendix",
-          "title": "附录：百化分速查表",
-          "file": "content/zl-appendix.md"
-        }
+        { "id": "zl-01", "title": "第一章 八大常用速算技巧", "file": "content/zl-01.md" },
+        { "id": "zl-02", "title": "第二章 基期量", "file": "content/zl-02.md" },
+        { "id": "zl-03", "title": "第三章 现期量", "file": "content/zl-03.md" },
+        { "id": "zl-04", "title": "第四章 增长量", "file": "content/zl-04.md" },
+        { "id": "zl-05", "title": "第五章 增长率", "file": "content/zl-05.md" },
+        { "id": "zl-06", "title": "第六章 间隔增长率", "file": "content/zl-06.md" },
+        { "id": "zl-07", "title": "第七章 乘积增长率", "file": "content/zl-07.md" },
+        { "id": "zl-08", "title": "第八章 年均增长率", "file": "content/zl-08.md" },
+        { "id": "zl-09", "title": "第九章 混合增长率", "file": "content/zl-09.md" },
+        { "id": "zl-10", "title": "第十章 现期比重、平均数、倍数", "file": "content/zl-10.md" },
+        { "id": "zl-11", "title": "第十一章 基期比重、平均数、倍数", "file": "content/zl-11.md" },
+        { "id": "zl-12", "title": "第十二章 两期比重、平均数", "file": "content/zl-12.md" },
+        { "id": "zl-13", "title": "第十三章 A和非A思想", "file": "content/zl-13.md" },
+        { "id": "zl-appendix", "title": "附录：百化分速查表", "file": "content/zl-appendix.md" }
       ]
     },
     {
       "name": "判断推理",
       "items": [
-        {
-          "id": "jt-01",
-          "title": "前言与概述",
-          "file": "content/jt-01.md"
-        },
-        {
-          "id": "jt-02",
-          "title": "图形推理-数量类①（素、面、角）",
-          "file": "content/jt-02.md"
-        },
-        {
-          "id": "jt-03",
-          "title": "图形推理-数量类②（线、点与计算规律）",
-          "file": "content/jt-03.md"
-        },
-        {
-          "id": "jt-04",
-          "title": "图形推理-位置类与属性类",
-          "file": "content/jt-04.md"
-        },
-        {
-          "id": "jt-05",
-          "title": "图形推理-样式类与重构类",
-          "file": "content/jt-05.md"
-        },
-        {
-          "id": "jt-06",
-          "title": "类比推理-概念与映射关系",
-          "file": "content/jt-06.md"
-        },
-        {
-          "id": "jt-07",
-          "title": "类比推理-语法语义与创新",
-          "file": "content/jt-07.md"
-        },
-        {
-          "id": "jt-08",
-          "title": "逻辑判断-基本逻辑原理",
-          "file": "content/jt-08.md"
-        },
-        {
-          "id": "jt-09",
-          "title": "逻辑判断-推理题型",
-          "file": "content/jt-09.md"
-        },
-        {
-          "id": "jt-10",
-          "title": "逻辑判断-加强与削弱论证",
-          "file": "content/jt-10.md"
-        },
-        {
-          "id": "jt-11",
-          "title": "定义判断",
-          "file": "content/jt-11.md"
-        },
-        {
-          "id": "jt-appendix",
-          "title": "附录-判断推理公式速查表",
-          "file": "content/jt-appendix.md"
-        }
+        { "id": "jt-01", "title": "前言与概述", "file": "content/jt-01.md" },
+        { "id": "jt-02", "title": "图形推理-数量类①（素、面、角）", "file": "content/jt-02.md" },
+        { "id": "jt-03", "title": "图形推理-数量类②（线、点与计算规律）", "file": "content/jt-03.md" },
+        { "id": "jt-04", "title": "图形推理-位置类与属性类", "file": "content/jt-04.md" },
+        { "id": "jt-05", "title": "图形推理-样式类与重构类", "file": "content/jt-05.md" },
+        { "id": "jt-06", "title": "类比推理-概念与映射关系", "file": "content/jt-06.md" },
+        { "id": "jt-07", "title": "类比推理-语法语义与创新", "file": "content/jt-07.md" },
+        { "id": "jt-08", "title": "逻辑判断-基本逻辑原理", "file": "content/jt-08.md" },
+        { "id": "jt-09", "title": "逻辑判断-推理题型", "file": "content/jt-09.md" },
+        { "id": "jt-10", "title": "逻辑判断-加强与削弱论证", "file": "content/jt-10.md" },
+        { "id": "jt-11", "title": "定义判断", "file": "content/jt-11.md" },
+        { "id": "jt-appendix", "title": "附录-判断推理公式速查表", "file": "content/jt-appendix.md" }
       ]
     },
     {
@@ -162,6 +58,75 @@
       "name": "申论",
       "items": [
         { "id": "ks-shenlun", "title": "申论 · 备考手册", "file": "content/ks-shenlun.md" }
+      ]
+    },
+    {
+      "name": "广东省考·资料分析",
+      "items": [
+        { "id": "gd-zl-00", "title": "资料分析 · 总览", "file": "content/gd-zl-00.md" },
+        { "id": "gd-zl-01", "title": "资料分析 · 谋略篇", "file": "content/gd-zl-01.md" },
+        { "id": "gd-zl-02", "title": "资料分析 · 速算篇", "file": "content/gd-zl-02.md" },
+        { "id": "gd-zl-03", "title": "资料分析 · 基期与现期", "file": "content/gd-zl-03.md" },
+        { "id": "gd-zl-04", "title": "资料分析 · 增长率与增长量", "file": "content/gd-zl-04.md" },
+        { "id": "gd-zl-05", "title": "资料分析 · 比重与平均数", "file": "content/gd-zl-05.md" },
+        { "id": "gd-zl-06", "title": "资料分析 · 倍数与综合分析", "file": "content/gd-zl-06.md" },
+        { "id": "gd-zl-07", "title": "资料分析 · 理论课补遗", "file": "content/gd-zl-07.md" }
+      ]
+    },
+    {
+      "name": "广东省考·判断推理",
+      "items": [
+        { "id": "gd-jt-01", "title": "判断推理 · 思维导图", "file": "content/gd-jt-01.md" }
+      ]
+    },
+    {
+      "name": "广东省考·言语理解与表达",
+      "items": [
+        { "id": "gd-yy-01", "title": "言语理解与表达 · 思维导图", "file": "content/gd-yy-01.md" }
+      ]
+    },
+    {
+      "name": "广东省考·数量关系",
+      "items": [
+        { "id": "gd-ql-01", "title": "数量关系 · 思维导图", "file": "content/gd-ql-01.md" }
+      ]
+    },
+    {
+      "name": "广东省考·常识判断",
+      "items": [
+        { "id": "gd-cs-01", "title": "常识判断 · 思维导图", "file": "content/gd-cs-01.md" }
+      ]
+    },
+    {
+      "name": "广东省考·成语辨析",
+      "items": [
+        { "id": "gd-cy-01", "title": "望文生义 A（1–100）", "file": "content/gd-cy-01.md" },
+        { "id": "gd-cy-02", "title": "望文生义 B（101–200）", "file": "content/gd-cy-02.md" },
+        { "id": "gd-cy-03", "title": "望文生义 C（201–307）", "file": "content/gd-cy-03.md" },
+        { "id": "gd-cy-04", "title": "高频成语辨析（1–100）", "file": "content/gd-cy-04.md" },
+        { "id": "gd-cy-05", "title": "高频成语辨析（101–200）", "file": "content/gd-cy-05.md" },
+        { "id": "gd-cy-06", "title": "高频成语辨析（201–300）", "file": "content/gd-cy-06.md" },
+        { "id": "gd-cy-07", "title": "高频成语辨析（301–357）", "file": "content/gd-cy-07.md" }
+      ]
+    },
+    {
+      "name": "广东省考·申论",
+      "items": [
+        { "id": "gd-shen-01", "title": "申论规范词 · 113 条", "file": "content/gd-shen-01.md" },
+        { "id": "gd-shen-02", "title": "申论金词 · 500 条", "file": "content/gd-shen-02.md" }
+      ]
+    },
+    {
+      "name": "广东省考·申论范文",
+      "items": [
+        { "id": "gd-fan-00", "title": "申论范文 · 主题索引", "file": "content/gd-fan-00.md" }
+      ]
+    },
+    {
+      "name": "广东省考·行测思维导图",
+      "items": [
+        { "id": "gd-xd-00", "title": "行测思维导图 · 总览", "file": "content/gd-xd-00.md" },
+        { "id": "gd-xd-zl", "title": "资料分析 · 思维导图", "file": "content/gd-xd-zl.md" }
       ]
     }
   ],
@@ -189,31 +154,88 @@
   ],
   "catPages": {
     "gk":  ["zl-01","zl-02","zl-03","zl-04","zl-05","zl-06","zl-07","zl-08","zl-09","zl-10","zl-11","zl-12","zl-13","zl-appendix","jt-01","jt-02","jt-03","jt-04","jt-05","jt-06","jt-07","jt-08","jt-09","jt-10","jt-11","jt-appendix"],
-    "gd":  ["zl-01","zl-02","zl-03","zl-04","zl-05","zl-06","zl-07","zl-08","zl-09","zl-10","zl-11","zl-12","zl-13","zl-appendix","jt-01","jt-02","jt-03","jt-04","jt-05","jt-06","jt-07","jt-08","jt-09","jt-10","jt-11","jt-appendix"],
+    "gd":  ["gd-zl-00","gd-zl-01","gd-zl-02","gd-zl-03","gd-zl-04","gd-zl-05","gd-zl-06","gd-zl-07","gd-jt-01","gd-yy-01","gd-ql-01","gd-cs-01","gd-cy-01","gd-cy-02","gd-cy-03","gd-cy-04","gd-cy-05","gd-cy-06","gd-cy-07","gd-shen-01","gd-shen-02","gd-fan-00","gd-xd-00","gd-xd-zl"],
     "syb": ["zl-01","zl-02","zl-03","zl-04","zl-05","zl-06","zl-07","zl-08","zl-09","zl-10","zl-11","zl-12","zl-13","zl-appendix","jt-01","jt-02","jt-03","jt-04","jt-05","jt-06","jt-07","jt-08","jt-09","jt-10","jt-11","jt-appendix"],
     "ai":  [],
     "ops": [],
     "pd":  []
   },
   "mindmapExams": ["gk", "gd", "syb"],
-  "mindmap": {
-    "branches": [
-      {
-        "name": "行测",
-        "children": [
-          { "name": "资料分析", "doc": "zl-01" },
-          { "name": "判断推理", "doc": "jt-01" },
-          { "name": "言语理解与表达", "doc": "ks-yuyan" },
-          { "name": "数量关系", "doc": "ks-shuliang" },
-          { "name": "常识判断", "doc": "ks-changshi" }
-        ]
-      },
-      {
-        "name": "申论",
-        "children": [
-          { "name": "申论", "doc": "ks-shenlun" }
-        ]
-      }
-    ]
+  "mindmaps": {
+    "gk": {
+      "branches": [
+        {
+          "name": "行测",
+          "children": [
+            { "name": "资料分析", "doc": "zl-01" },
+            { "name": "判断推理", "doc": "jt-01" },
+            { "name": "言语理解与表达", "doc": "ks-yuyan" },
+            { "name": "数量关系", "doc": "ks-shuliang" },
+            { "name": "常识判断", "doc": "ks-changshi" }
+          ]
+        },
+        {
+          "name": "申论",
+          "children": [
+            { "name": "申论", "doc": "ks-shenlun" }
+          ]
+        }
+      ]
+    },
+    "syb": {
+      "branches": [
+        {
+          "name": "行测",
+          "children": [
+            { "name": "资料分析", "doc": "zl-01" },
+            { "name": "判断推理", "doc": "jt-01" },
+            { "name": "言语理解与表达", "doc": "ks-yuyan" },
+            { "name": "数量关系", "doc": "ks-shuliang" },
+            { "name": "常识判断", "doc": "ks-changshi" }
+          ]
+        },
+        {
+          "name": "申论",
+          "children": [
+            { "name": "申论", "doc": "ks-shenlun" }
+          ]
+        }
+      ]
+    },
+    "gd": {
+      "branches": [
+        {
+          "name": "行测",
+          "children": [
+            { "name": "资料分析", "doc": "gd-zl-01" },
+            { "name": "判断推理", "doc": "gd-jt-01" },
+            { "name": "言语理解与表达", "doc": "gd-yy-01" },
+            { "name": "数量关系", "doc": "gd-ql-01" },
+            { "name": "常识判断", "doc": "gd-cs-01" }
+          ]
+        },
+        {
+          "name": "申论",
+          "children": [
+            { "name": "申论规范词", "doc": "gd-shen-01" },
+            { "name": "申论金词", "doc": "gd-shen-02" },
+            { "name": "申论范文", "doc": "gd-fan-00" }
+          ]
+        },
+        {
+          "name": "成语辨析",
+          "children": [
+            { "name": "成语辨析", "doc": "gd-cy-01" }
+          ]
+        },
+        {
+          "name": "行测思维导图",
+          "children": [
+            { "name": "思维导图总览", "doc": "gd-xd-00" },
+            { "name": "资料分析导图", "doc": "gd-xd-zl" }
+          ]
+        }
+      ]
+    }
   }
 }
